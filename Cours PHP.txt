@@ -1,3 +1,6 @@
+Installer DASH DOC sur mac pour la documentation 
+(zeal sur windows)
+
 ** COURS DE PHP **
 Il existe deux extensions php :
 .php (privilégiée)
@@ -118,6 +121,8 @@ La fonction va créer et ouvrir une session.
 En créant un fichier coté serveur, et un cookie coté client, le serveur peut identifier vos informations, vos achats lors de la connexion
 /!\ à mettre le session_start en premier; (sans saut de ligne, espace ou autre)
 La session sera fermée à la fermeture du navigateur.
+
+Ne jamais enregistrer de mdp dans les cookies
 
 - Affichage des erreurs
 aller dans le dossier /etc/php/7.2/fpm/php.ini
