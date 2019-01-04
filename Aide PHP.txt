@@ -1,0 +1,182 @@
+** CONNEXION A UNE ADRESSE IP **
+Windows + R
+\\ adresse ip 
+
+
+** INSTALLATION MACHINE VIRTUELLE**
+Installer virtual box à partir du .exe
+installer le package de version 6.0
+
+Lancer ubuntu.ova et importer la machine virtuelle
+Si besoin, il est possible de trouver d'autres machines virtuelles à partir du site ubuntu. 
+Télécharger un fichier.iso et la configurer comme nouvelle machine 
+(équivalent d'un formatage ordi, complètement vierge)
+
+ - > démarrer
+
+
+** CONFIGURATION VIRTUAL BOX ET AUTRES**
+terminal commandes > sudo apt update && sudo apt upgrade && sudo apt dist-upgrade
+
+Installer :
+- php storm
+- apache netbeans
+
+terminal > sudo apt install php7.2-fpm php7.2-json php7.2-xml php7.2-curl php7.2-cli php7.2-mysql php7.2-sqlite php7.2-mbstring
+
+sudo apt install vim git ssh 
+ssh : permet de sécuriser des données de réseaux
+(sudo apt install terminator (terminal plus évoluer))
+
+php -v (permet de vérifier l'installation de php)
+php --help (retrouver les commandes php)
+**CREATION DE FICHIER**
+ls
+mkdir "nom de fichier"
+mv "nom intial" "nouveau nom" (modifier un nom de fichier)
+dans notre dossier créé : 
+touch index.php (touch permet de créer un fichier)
+
+le phpinfo() permet de connaitre tous les détails de notre fichier 
+
+**VSC**
+vérifier que notre fichier est bien lu sur le serveur (avec un phpinfo() par exemple)
+
+**LANCEMENT DU SERVEUR EN CONSOLE**
+php -S localhost:3000 -docroot
+(-S pour définir le serveur)
+
+**TERMINAL**
+which php // donne l'adresse du programme pour faire notre programme exécutable
+
+chmod u+x index.php // créer un fichier executable 
+ll
+./index.php
+
+getcomposer/download et récupérer le premier lien 
+puis ls (le fichier composer doit exister)
+puis ./composer.phar
+puis ligne du composer setup
+puis unlink
+
+on déplace notre fichier avec la commande : (composer.phar sera déplacer dans notre dossier avec executable)
+sudo cp composer.phar /usr/local/bin/composer
+
+**CREATION D'UN SERVEUR NGINX**
+(pour gérer la concurrence de nos requêtes par exemple)
+
+sudo apt install nginx-full
+verification dans le navigateur avec l'adresse localhost
+
+cd /etc/nginx 
+ll ou ls -lah (données avec poids de fichiers)
+
+On se place dans le fichier sites-available
+cat default 
+sudo vim default
+
+Le root permet d'obtenir le chemin de notre fichier par défault
+ctrl+i si besoin de modifier le fichier 
+
+*changement du fichier par défaut,*
+- on commente la ligne root et on note la nouvelle root /home/dev/www
+
+Le modèle de configuration est déjà prêt
+
+- Rajouter index.php dans la ligne des index
+- décommenter la location (sauf dernière ligne) et changer la version de php7.2-fpm-stock
+ echap et :x pour sortir du fichier
+
+*lancer le service nginx
+sudo service nginx restart
+ouverture du navigateur en localhost
+
+**CONFIGURATION BDD**
+
+sudo apt install mysql-server
+
+mysql -u root -p
+(sans mdp)
+
+sudo su - 
+(- pour ne pas charger les variables d'environnement)
+
+mysql 
+pour vérifier l'installation
+ctrl + D pour sortir de mysql
+
+mysql_secure_installation
+yes
+0
+new password : 12345678
+(mdp de la base)
+yes
+yes 
+yes 
+no
+no
+nouveau mdp
+
+mysql -u root -p
+mysql > CREATE USER `dev`@`localhost`IDENTIFIED BY '00000000';
+(mdp de dev : avoir un minimum de 8 caractères.)
+
+mysql > GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost'; 
+(donne tous les droits à notre utilisateur dev
+
+mysql > FLUSH PRIVILEGES;
+(recharger les droits d'utilisateur, pour les actualiser)
+
+ctrl + D pour sortir de mysql
+on se reconnecte en tant que dev 
+mysql -u dev -p
+mdp : 00000000
+
+ctrl + D
+ctrl + D
+
+**CREATION D4UN FICHIER CONTENANT LE MDP, APPELE AUTOMATIQUEMENT**
+(droits limités à l'accès de ce fichier)
+
+se placer dans le repertoire home
+creation de fichier .my.cnf
+vim .my.cnf
+
+dans le fichier : 
+insertion > 
+[client]
+
+user=dev
+password=00000000
+
+echap 
+:x
+
+appel de notre fichier pour se connecter
+mysql --defaults-file=.my.cnf
+
+**CREATION D'UN ALIAS**
+vim .bash_aliases
+
+dans le fichier :
+insertion > alias my='mysql --defaults-file=$HOME/.my.cnf'
+
+source .bash_aliases
+(MAJ du bash)
+appel de l'alias my dans la console. La bdd est connecté avec nos id dans le fichier.my.cnf
+
+**SE CONNECTER SUR NOTRE WINDOWS A PARTIR DE NOTRE VIRTUAL BOX**
+
+Paramétrages dans VB (2 petits écrans)
+Réseau > avancé > ajout d'un port
+HTTP TCP 127.0.01 8080 10.0.2.15 80 
+
+dans le navigateur, adresse 127.0.0.1:8080
+(ip hôte avec le numéro du port)
+
+
+
+** PROJET PHP **
+Créer un nouveau projet dans le dossier www
+
+

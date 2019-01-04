@@ -1,0 +1,127 @@
+** COURS DE PHP **
+Il existe deux extensions php :
+.php (privilégiée)
+.phtml
+
+- Ouvrir une balise : 
+<? php
+il n'est pas obligé de fermer la balise si notre fichier ne contient que du php. En fermant la balise, cela risque de créer 
+des erreurs coté serveur (retour chariot, espaces dangereux)
+
+La balise sera fermée dans le cas d'introduction d'un ou dans un autre langage. 
+?>
+
+Attention à toujours bien placer les ";"
+
+- <?php echo "blablabla"?> ou <?= "blablabl";?>
+Echo permet d'afficher le texte dans notre navigateur
+
+- Ordre de syntaxe : (équivalent)
+<?= '<h1>HELLO</h1>'?>
+<h1><?php echo "HELLO 2" ?></h1>
+
+- Commentaires : 
+/*
+* Commentaires en block
+*/
+// Commentaires en ligne
+# Commentaires en ligne
+
+- Variables
+$name = 'toto';
+Le $ permet d'appeler une variable. Une variable n'a pas besoin d'être typée. Une valeur numérique, une chaine de caractères etc. 
+
+La concaténation se fait par un ".". 
+
+Le & permet de cibler une adresse mémoire. 
+
+$name ='toto';
+$toto='Chuck Norris';
+$$name
+Le premier 'toto' devient variable. Le $$name affiche donc la valeur de $name=$toto='Chuck Norris'.
+
+$$name sera égal à ${$name}.
+
+Chaine de caractère : 
+$name = 'toto'
+echo 'Bonjour $name'
+=> affichera Bonjour $name
+
+$name = 'toto'
+echo "Bonjour $name"
+=> affichera Bonjour toto
+
+Les doubles "" permettent d'interprêter la valeur de la variable. 
+
+- Tableau 
+
+$arr = array('a','b','c'); ou $arr = ['a','b','c'];
+$arr[] = 'd'; Ajoute la valeur d à notre tableau
+print_r($arr);
+
+$a[] = array('une valeur'). Le $a[] crée un tableau, et la fonction array crée un tableau également. On obtient un tableau à 
+l'index 0 dans notre tableau $a.
+
+$c[50] = 'test';
+$c[] = 'un autre test';
+La valeur'un autre test' va être ajouté à l'index 51 de notre tableau. Prend la dernière valeur rencontrée et ajoute à la suite. 
+
+$users = [
+	[
+		'name' => 'Chuck',
+		'age' => 'eternel',
+		'ville' => 'texas',
+	],
+	[
+		'name' => 'Steven',
+		'age' => '60',
+		'ville' => 'texas',
+	],
+];
+
+Si on veut récupérer la valeur de l'age de Steven :
+echo $users[1]['age']; 
+Récupère les valeurs de l'index 1 puis récupère la valeur dont le nom de la valeur est 'age'.
+
+- Conversion de typage (caster)
+$str = (int)'125';
+$str = (string)$str;
+Le (int) convertit le string en int. 
+Reconvertit la variable $str en string
+
+$str ='123partez';
+echo 5 + $str;
+Cela va renvoyer la valeur 128, va parcourir les nombres, supprimer les caractères et ajouter 5.
+
+- informations
+le var_dump permet d'afficher des informations sur notre variable
+
+- propriétés
+$person =  [
+	'name' => 'Joe',
+	'age' => 30,
+	'vile' => 'Massachaussette',
+]
+$person = (object)$person; Convertit le tableau en objet
+
+echo $person->name; Permet d'appeler la propriété de notre objet (la flèche permet d'appeler la propriété d'un objet)
+
+
+Pour zoomer, modifier les paramètres de zoom.
+Penser à changer la version de php dans l'éditeur pour éviter des problèmes de syntaxe
+
+- SESSION 
+
+session_start();
+La session permet de se souvenir de l'utilisateur et de ses informations. 
+La fonction va créer et ouvrir une session. 
+En créant un fichier coté serveur, et un cookie coté client, le serveur peut identifier vos informations, vos achats lors de la connexion
+/!\ à mettre le session_start en premier; (sans saut de ligne, espace ou autre)
+La session sera fermée à la fermeture du navigateur.
+
+- Affichage des erreurs
+aller dans le dossier /etc/php/7.2/fpm/php.ini
+
+Modifier le display_errors qui n'est pas en commentaire (recherche avec le "/" + entrée et n pour next)
+Redémarrer le php avec service php7.2-fpm restart
+Les erreurs seront à présent affichées. 
